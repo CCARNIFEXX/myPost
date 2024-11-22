@@ -5,4 +5,12 @@ spring:
     username: postgres
     password: ${POSTGRES_PASSWORD}
     url: jdbc:postgresql://localhost:5432/postgres
-
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: Users/target/create.sql

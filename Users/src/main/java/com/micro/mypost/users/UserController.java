@@ -1,7 +1,6 @@
 package com.micro.mypost.users;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
@@ -23,7 +22,8 @@ class UserController {
 
     @GetMapping("{userId}")
 
-    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") @NotBlank @NotNull String userId) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") String userId) {
+
         User user = getUserQuery.getById(userId);
         return ResponseEntity.ok(new UserDTO().setNickname(user.getNickname()).setEmail(user.getEmail()));
 
@@ -33,6 +33,7 @@ class UserController {
 @Data
 @Accessors(chain = true)
 class UserDTO {
+    @Min(0)
     private String nickname;
     private String email;
 }

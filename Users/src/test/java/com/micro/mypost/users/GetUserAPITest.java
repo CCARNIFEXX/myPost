@@ -30,17 +30,6 @@ public class GetUserAPITest {
 
     @ParameterizedTest
     @CsvSource(textBlock = """ 
-            " "
-            """)
-    void badRequest(String id) throws Exception {
-
-        this.mockMvc.perform(get("/api/user/" + id)).andDo(print()).andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").isNotEmpty());
-
-    }
-
-    @ParameterizedTest
-    @CsvSource(textBlock = """ 
             0
             1
             -1
