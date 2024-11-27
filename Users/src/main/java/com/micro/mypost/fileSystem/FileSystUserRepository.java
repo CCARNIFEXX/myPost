@@ -5,11 +5,13 @@ import com.micro.mypost.users.UserRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @Qualifier("FileSystem")
 class FileSystUserRepository implements UserRepository {
     @Override
-    public User getByLogin(String login) {
-        return new User().setNickname("adam").setEmail("adam@mail.com");
+    public Optional<User> getByLogin(String login) {
+        return Optional.of(new User().setNickname("adam").setEmail("adam@mail.com"));
     }
 }

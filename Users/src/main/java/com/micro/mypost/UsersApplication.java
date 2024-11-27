@@ -1,4 +1,4 @@
-package com.micro.mypost.users;
+package com.micro.mypost;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

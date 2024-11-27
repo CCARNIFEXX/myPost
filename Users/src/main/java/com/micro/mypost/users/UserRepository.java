@@ -1,5 +1,7 @@
 package com.micro.mypost.users;
 
+import java.util.Optional;
+
 public interface UserRepository {
 
     /**
@@ -8,5 +10,5 @@ public interface UserRepository {
      * @param login логин
      * @return Пользователь
      */
-    User getByLogin(String login);
+    Optional<User> getByLogin(String login);
 }

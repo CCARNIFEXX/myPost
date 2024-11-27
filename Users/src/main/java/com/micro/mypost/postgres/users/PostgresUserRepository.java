@@ -5,6 +5,8 @@ import com.micro.mypost.users.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository("Postgres")
 @RequiredArgsConstructor
 public class PostgresUserRepository implements UserRepository {
@@ -18,8 +20,8 @@ public class PostgresUserRepository implements UserRepository {
      * @return {@inheritDoc}
      */
     @Override
-    public User getByLogin(String login) {
-        DBUser dbUser = repository.findByNickname(login);
-        return new User().setNickname(dbUser.getNickname()).setEmail(dbUser.getEmail());
+    public Optional<User> getByLogin(String login) {
+        return repository.findByNickname(login)
+                .map(user -> new User().setNickname(user.getNickname()).setEmail(user.getEmail()));
     }
 }

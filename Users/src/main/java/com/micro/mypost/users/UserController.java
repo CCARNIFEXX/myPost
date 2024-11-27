@@ -4,12 +4,13 @@ import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
@@ -20,12 +21,21 @@ class UserController {
 
     private final GetUserQuery getUserQuery;
 
-    @GetMapping("{userId}")
 
-    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") String userId) {
+    @ExceptionHandler(value = UserNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handler(UserNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", exception.getMessage()));
+    }
 
-        User user = getUserQuery.getById(userId);
-        return ResponseEntity.ok(new UserDTO().setNickname(user.getNickname()).setEmail(user.getEmail()));
+    @GetMapping("{nickname}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable("nickname") String nickname) {
+
+        Optional<User> user = getUserQuery.getById(nickname);
+        return user
+                .map(user1 ->
+                        ResponseEntity.ok(new UserDTO().setNickname(user.get().getNickname()).setEmail(user.get().getEmail())))
+                .orElseThrow(() -> new UserNotFoundException("Не найден пользователь с nickname = %s ".formatted(nickname)));
+
 
     }
 }
