@@ -14,3 +14,15 @@ spring:
             scripts:
               action: create
               create-target: Users/target/create.sql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, loggers, prometheus
+
+
+
+  endpoint:
+    health:
+      show-details: always

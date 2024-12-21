@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Офис</title>
+</head>
+<body>
+<h1>Наши Офисы</h1>
+<table>
+    <tr>
+        <th>Номер</th>
+        <th>Адрес</th>
+        <th>Время Работы</th>
+    </tr>
+    <tr th:each="office: ${allOffices}">
+        <td th:text="${office.number}"></td>
+        <td th:text="${office.address}"></td>
+        <td th:text="${office.workTime}"></td>
+    </tr>
+</table>
+</body>
+</html>

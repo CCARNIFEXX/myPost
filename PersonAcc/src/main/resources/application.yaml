@@ -5,3 +5,11 @@ server:
   port: 8081
 integration:
   user-gate: http://localhost:8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, loggers, prometheus
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%-10logger{5}) [%X{}] %msg [%thread]%n"
