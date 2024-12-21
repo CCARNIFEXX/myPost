@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: PersonAcc
+server:
+  port: 8081
+integration:
+  user-gate: http://localhost:8080

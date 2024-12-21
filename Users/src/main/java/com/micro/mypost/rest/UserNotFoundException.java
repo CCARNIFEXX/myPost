@@ -1,4 +1,4 @@
-package com.micro.mypost.users;
+package com.micro.mypost.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

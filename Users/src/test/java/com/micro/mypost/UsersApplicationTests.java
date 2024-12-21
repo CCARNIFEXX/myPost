@@ -1,4 +1,4 @@
-package com.micro.mypost.users;
+package com.micro.mypost;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
