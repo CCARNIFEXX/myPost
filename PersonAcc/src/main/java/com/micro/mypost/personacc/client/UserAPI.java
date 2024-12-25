@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "UserClient", url = "${integration.user-gate}")
+@FeignClient(value = "UserClient", url = "${integration.user-gate}", configuration = FeignConfig.class)
 public interface UserAPI {
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/user/{nickname}")

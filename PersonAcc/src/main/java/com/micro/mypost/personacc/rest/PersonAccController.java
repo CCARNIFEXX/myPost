@@ -1,5 +1,6 @@
 package com.micro.mypost.personacc.rest;
 
+import com.micro.mypost.personacc.client.OfficeAPI;
 import com.micro.mypost.personacc.client.UserAPI;
 import com.micro.mypost.personacc.office.Office;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 public class PersonAccController {
     @Autowired
     private UserAPI userAPI;
+    @Autowired
+    private OfficeAPI officeAPI;
 
 
     @GetMapping(value = "/")
@@ -24,10 +27,9 @@ public class PersonAccController {
 
     @GetMapping(value = "/offices")
     public ModelAndView getOffices(ModelMap model) {
-        List<Office> officesList = List.of(
-                new Office(1, "ул.Пушкина д.Колотушкина", "10-20, Перерыв с 12-13"),
-                new Office(2, "ул.Луганка д.2", "10-20, Перерыв с 12-13"),
-                new Office(3, "ул.Красная Площадь д.1", "10-20, Перерыв с 12-13"));
+        List<Office> officesList = officeAPI.getAllOffices().stream()
+                .map(officeDTO ->
+                        new Office(officeDTO.getNumber(), officeDTO.getAddress(), officeDTO.getWorkTime())).toList();
         model.addAttribute("allOffices", officesList);
         return new ModelAndView("offices", model);
     }
